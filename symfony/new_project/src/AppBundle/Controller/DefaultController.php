@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Miroslav Mitov
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Form\UserType;
