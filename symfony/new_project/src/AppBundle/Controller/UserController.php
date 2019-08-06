@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Miroslav Mitov
+ * @Author Miroslav Mitov
  */
 
 namespace AppBundle\Controller;
