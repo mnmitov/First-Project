@@ -1,7 +1,9 @@
 body {
-  background: #F5F5F5;
+  background: #ffffff;
   font: 18px/1.5 sans-serif;
 }
+
+
 
 h1, h2 {
   line-height: 1.2;
@@ -18,10 +20,6 @@ h2 {
   margin-bottom: 1em;
 }
 
-div {
-  background: #868686;
-}
-
 p {
   margin: 0 0 1em 0;
 }
@@ -35,10 +33,12 @@ a:hover {
 }
 
 table {
-  alignment-baseline: center;
+  text-align: center;
   border-spacing: 0.1mm;
   border: 0;
   appearance: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 td {
@@ -69,10 +69,6 @@ code {
   width: 95%;
 }
 
-#container {
-  padding: 2em;
-}
-
 #welcome, #status {
   margin-bottom: 2em;
 }
@@ -98,6 +94,18 @@ code {
   #wrapper {
     width: 80%;
     margin: 2em auto;
+  }
+
+  #container {
+    background: #F5F5F5;
+    height: auto;
+    max-width: 100%;
+    text-align: center;
+    padding: 3em;
+    border-style: solid;
+    border-radius: 50px;
+    border-color: #CCCCCC;
+    border-width: 1px;
   }
 
   #icon-book {
