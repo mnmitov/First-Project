@@ -3,22 +3,22 @@
 {% block body %}
   <span>
      <div id="container" xmlns="http://www.w3.org/1999/html">
-    <div id="Create">
-      <h1>Edit objects</h1>
+    <div id="Edit">
+      <h1>Edit tenders</h1>
+      <form method="post" action="{{ path('edit_tender', {'id' : tenders.id}) }}">
+        Change Name: <input type="text" value="{{ tenders.name }}" name="app_bundle_tender_type[name]"><br>
+        Change City: <input type="text" value="{{ tenders.city }}" name="app_bundle_tender_type[city]"><br>
+        Change Type: <input type="text" value="{{ tenders.type }}" name="app_bundle_tender_type[type]"><br>
+        Change Money: <input type="text" value="{{ tenders.money }}" name="app_bundle_tender_type[money]"><br>
+        Change Deadline: <input type="text" value="{{ tenders.deadline }}" name="app_bundle_user_type[deadline]"><br>
 
-      <form method="post" action="{{ path('edit_user', {'id' : users.id}) }}">
-        Change User Name: <input type="text" value="{{ users.username }}" name="app_bundle_user_type[username]"><br>
-        Change password: <input type="text" value="{{ users.password }}" name="app_bundle_user_type[password]"><br>
-        Change email: <input type="text" value="{{ users.email }}" name="app_bundle_user_type[email]"><br>
-        <input type="submit" value="Change">
+        <input type="submit" value="Edit">
         <input type="button" onclick="history.back()" value="Go back without any changes">
         {{ form_row(form._token) }}
       </form>
-
       <br/>
-      <a href="{{ path('create') }}">Create a new object</a><br>
-      or<br>
-      Go to <a href="{{ path('homepage') }}">Index page</a>
+      <a href="{{ path('create') }}">Create a new object</a>
+      or get back to <a href="{{ path('homepage') }}">Index page</a>
     </div>
   </div>
      </span>

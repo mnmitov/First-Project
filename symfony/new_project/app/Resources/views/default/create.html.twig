@@ -1,27 +1,5 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <span>
-      <div id="container">
-    <div id="Create">
-      <h1>Create a new object</h1>
-      <form method="post" action="{{ path('user_register') }}">
-        User: <label>
-          <input type="text" name="app_bundle_user_type[username]">
-        </label><br>
-        Password: <label>
-          <input type="password" name="app_bundle_user_type[password]">
-        </label><br>
-        Email: <label>
-          <input type="email" name="app_bundle_user_type[email]">
-        </label><br>
-        <input type="submit" value="Send to database"><br>
-      </form>
-      <br>
-      Go to <a href="{{ path('all_users') }}">List of objects</a><br>
-      or<br>
-      Go to <a href="{{ path('homepage') }}">Index page</a>
-    </div>
-  </div>
-    </span>
+
 {% endblock %}

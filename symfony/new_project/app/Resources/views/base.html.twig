@@ -4,14 +4,26 @@
 <head>
   <meta charset="UTF-8"/>
   <title>{% block title %}First Project!{% endblock %}</title>
+  <header class="shy-header">
+    <div id="header">Public tenders online platform</div>
+  </header>
 </head>
-
 <body>
 {% block stylesheets %}
   <link rel="stylesheet" type="text/css" href="{{ asset('stylesheet.css') }}"
 {% endblock %}
 {% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+          integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+          crossorigin="anonymous">
+  </script>
+  <script src="{{ asset('js/jquery.shyheader.min.js') }}"></script>
+  <script>
+      $(function () {
+          $(".shy-header").shyheader();
+      });
+  </script>
+{% endblock %}
 </body>
-
 </html>

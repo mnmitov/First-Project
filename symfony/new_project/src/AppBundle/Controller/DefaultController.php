@@ -22,16 +22,4 @@ class DefaultController extends Controller
     ]);
 
   }
-
-
-  /**
-   * @Route ("/create", name="create")
-   */
-  public function create(Request $request)
-  {
-    $form = $this->createForm(UserType::class);
-    return $this->render('default/create.html.twig',
-      ['form' => $form->createView()
-      ]);
-  }
 }

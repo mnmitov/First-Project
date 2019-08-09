@@ -6,7 +6,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\TenderType;
 use AppBundle\Form\UserType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends Controller
 {
   /**
-   * @Route("/users/register", name="user_register")
+   * @Route("/user_register", name="user_register")
    */
-  public function register(Request $request)
+  public function userRegister(Request $request)
   {
     $user = new User();
     $form = $this->createForm(UserType::class, $user);
@@ -28,9 +30,10 @@ class UserController extends Controller
 
       return $this->redirectToRoute('all_users');
     }
-    var_dump($user);
+
     return $this->render('default/create.html.twig', ['form' => $form->createView()]);
   }
+
 
   /**
    * @Route("/users/all", name="all_users")
@@ -39,7 +42,7 @@ class UserController extends Controller
   {
     $users = $this->getDoctrine()->getRepository(User::class)->findBy([], ['id' => 'DESC']);
 
-    return $this->render('default/list.html.twig', ['users' => $users]);
+    return $this->render(':default:list.html.twig', ['users' => $users]);
   }
 
   /**

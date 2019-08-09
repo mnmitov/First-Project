@@ -1,45 +1,110 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+  <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
 
   <span><div id="container" xmlns="http://www.w3.org/1999/html">
     <div id="Create">
-      <h1>List of objects</h1>
+      <h1>List of tenders</h1>
+
+      <!-- Trigger the modal with a button -->
+<div class="container">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add new tender</button><br><br>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title">Add new tender</h2>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <span>
+      <div id="container">
+    <div id="Create">
+      <h1>Create a new tender</h1>
+      <form method="post" action="{{ path('new_tender') }}">
+       <label>
+          Възложител: <input type="text" name="app_bundle_tender_type[name]">
+        </label><br>
+       <label>
+          Град: <input type="text" name="app_bundle_tender_type[city]">
+        </label><br>
+       <label>
+         Предмет: <input type="text" name="app_bundle_tender_type[type]">
+        </label><br>
+       <label>
+          Прогнозна стойност: <input type="number" name="app_bundle_tender_type[money]">
+        </label><br>
+        <label>
+          Краен срок: <input type="date" name="app_bundle_tender_type[deadline]"><br>
+
+        </label><br>
+        <input type="submit" value="Add"><br>
+      </form>
+      <br>
+    </div>
+  </div>
+    </span>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+      <!-- END large modal -->
 
       <table>
         <thead>
         <tr>
-          <th>Id</th>
-          <th>User Name</th>
-          <th>Password</th>
-          <th>EMail</th>
+          <th>Name</th>
+          <th>City</th>
+          <th>Type</th>
+          <th>Money</th>
+          <th>Deadline</th>
+          <th>Added on</th>
           <th>Remove</th>
           <th>Edit</th>
         </tr>
         </thead>
         <tbody>
-        {% for user in users %}
+        {% for tender in tenders %}
           <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.password }}</td>
-            <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-            <td><a href="{{ path('remove_user', {'id' : user.id}) }}"
+            <td>{{ tender.Name }}</td>
+            <td>{{ tender.City }}</td>
+            <td>{{ tender.Type }}</td>
+            <td>{{ tender.Money }} лв.</td>
+            <td><b>{{ tender.Deadline|date('d.m.Y') }}</b></td>
+            <td>{{ tender.addedOn|date('d.m.Y') }}</td>
+            <td><a href="{{ path('delete_tender', {'id' : tender.id}) }}"
                    onclick="return confirm('Are you sure to delete?')">Remove</a></td>
-            <td><a href="{{ path('edit_user', {'id' : user.id}) }}">Edit</a></td>
+            <td><a href="{{ path('edit_tender', {'id' : tender.id}) }}">Edit</a></td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
       <br/>
-      <a href="{{ path('create') }}">Create a new object</a><br>
-      or<br>
-      Go to <a href="{{ path('homepage') }}">Index page</a>
-
+      <a href="{{ path('create') }}">Create a new object</a>
+      or get back to <a href="{{ path('homepage') }}">Index page</a>
     </div>
-
   </div>
-    </span>
+    </div>
+  </span>
 {% endblock %}
-
 
