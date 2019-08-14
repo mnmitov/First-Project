@@ -6,9 +6,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
-use AppBundle\Form\TenderType;
 use AppBundle\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,79 +14,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends Controller
 {
   /**
-   * @Route("/user_register", name="user_register")
-   */
-  public function userRegister(Request $request)
+ * @Route("/register", name="user_register")
+ * @param Request $request
+ * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+ */
+  public function registerAction(Request $request)
   {
     $user = new User();
     $form = $this->createForm(UserType::class, $user);
     $form->handleRequest($request);
+
     if ($form->isSubmitted()) {
+      $passwordHash =
+        $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+      $user->setPassword($passwordHash);
+
       $em = $this->getDoctrine()->getManager();
       $em->persist($user);
       $em->flush();
 
-      return $this->redirectToRoute('all_users');
+      return $this->redirectToRoute('homepage');
     }
 
-    return $this->render('default/create.html.twig', ['form' => $form->createView()]);
+    return $this->render('users/register.html.twig');
   }
 
-
-  /**
-   * @Route("/users/all", name="all_users")
-   */
-  public function all()
-  {
-    $users = $this->getDoctrine()->getRepository(User::class)->findBy([], ['id' => 'DESC']);
-
-    return $this->render(':default:list.html.twig', ['users' => $users]);
-  }
-
-  /**
-   * @Route("/users/delete/{id}", name="remove_user")
-   * @param $id
-   * @return \Symfony\Component\HttpFoundation\Response
-   */
-  public function delete($id, Request $request)
-  {
-    $em = $this->getDoctrine()->getManager();
-    $user = $em -> getRepository('AppBundle:User')->find($id);
-    $em -> remove($user);
-    $em -> flush();
-
-    return $this->redirectToRoute('all_users');
-  }
-
-
-  /**
-   * @Route("/users/edit/{id}", name="edit_user")
-   * @param $id
-   * @return \Symfony\Component\HttpFoundation\Response
-   */
-  public function edit($id, Request $request)
-  {
-    $repo = $this->getDoctrine()->getRepository(User::class);
-    $user = $repo->find($id);
-
-    if ($user === null) {
-      return $this->redirect("/");
-    }
-
-    $form = $this->createForm(UserType::class, $user);
-
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($user);
-      $em->flush();
-
-      return $this->redirect('/users/all');
-    }
-
-    return $this->render(
-      'default/edit.html.twig',
-      ['users' => $user, 'form' => $form->createView()]);
-  }
 }

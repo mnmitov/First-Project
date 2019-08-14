@@ -1,9 +1,12 @@
 <?php
-
+/**
+ * @Author Miroslav Mitov
+ */
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tender;
 use AppBundle\Form\TenderType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +15,7 @@ class TenderController extends Controller
 {
   /**
    * @Route("/new_tender", name="new_tender")
+   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    */
   public function tenderRegister(Request $request)
   {
@@ -26,36 +30,39 @@ class TenderController extends Controller
       return $this->redirectToRoute('all_tenders');
     }
 
-    return $this->render('default/create.html.twig', ['form' => $form->createView()]);
+    return $this->render('home/list.html.twig', ['form' => $form->createView()]);
   }
 
   /**
    * @Route ("/tenders/create", name="create")
+   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    */
   public function create(Request $request)
   {
     $form = $this->createForm(TenderType::class);
-    return $this->render('default/create.html.twig',
+    return $this->render('home/list.html.twig',
       ['form' => $form->createView()
       ]);
   }
 
   /**
    * @Route("/tenders/all", name="all_tenders")
+   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    */
-  public function all()
+  public function allTenders()
   {
-    $tenders = $this->getDoctrine()->getRepository(Tender::class)->findBy([], ['deadline' => 'DESC']);
+    $tenders = $this->getDoctrine()->getRepository(Tender::class)->findBy([], ['deadline' => 'ASC']);
 
-    return $this->render(':default:list.html.twig', ['tenders' => $tenders]);
+    return $this->render("home/list.html.twig", ['tenders' => $tenders]);
   }
 
   /**
    * @Route("/tenders/delete/{id}", name="delete_tender")
+   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param $id
    * @return \Symfony\Component\HttpFoundation\Response
    */
-  public function delete($id, Request $request)
+  public function deleteTender($id, Request $request)
   {
     $em = $this->getDoctrine()->getManager();
     $tenders = $em->getRepository('AppBundle:Tender')->find($id);
@@ -68,10 +75,11 @@ class TenderController extends Controller
 
   /**
    * @Route("/tenders/edit/{id}", name="edit_tender")
+   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param $id
    * @return \Symfony\Component\HttpFoundation\Response
    */
-  public function edit($id, Request $request)
+  public function editTender($id, Request $request)
   {
     $repo = $this->getDoctrine()->getRepository(Tender::class);
     $tenders = $repo->find($id);
@@ -93,7 +101,7 @@ class TenderController extends Controller
     }
 
     return $this->render(
-      'default/edit.html.twig',
+      'home/edit.html.twig',
       ['tenders' => $tenders, 'form' => $form->createView()]);
   }
 

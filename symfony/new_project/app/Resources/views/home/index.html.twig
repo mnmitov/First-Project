@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <span><div id="container">
+      <h1>Welcome!</h1>
+      <h3>Tenders and Conference Scheduler Platform</h3>
+
+{% if app.user %}
+{% else %}
+  <h2>Login</h2>
+  <form method="post" name="authenticate" action="{{ path('security_login') }}">
+  Email: <input type="text" name="_username"><br>
+  Password: <input type="password" name="_password"><br>
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+  <input type="submit" value="Login">
+</form><br>
+  {% endif %}
+
+      {% if app.user %}
+        {% for user in users %}
+          Hello, {{ user.email }}!<br><br>
+        {% endfor %}
+        <a href="{{ path('all_tenders') }}">All scheduled tenders</a> | <a
+        href="{{ path('security_logout') }}">LOGOUT</a><br><br>
+      {% else %}
+
+        If you don't have account: <a href="{{ path('user_register') }}">Register!</a>
+      {% endif %}
+    </div>
+    </span>
+{% endblock %}

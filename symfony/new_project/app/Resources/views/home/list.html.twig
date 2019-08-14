@@ -2,15 +2,15 @@
 
 {% block body %}
   <head>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
   </head>
 
   <span><div id="container" xmlns="http://www.w3.org/1999/html">
     <div id="Create">
-      <h1>List of tenders</h1>
+
 
       <!-- Trigger the modal with a button -->
 <div class="container">
@@ -30,24 +30,24 @@
         <!-- Modal body -->
         <div class="modal-body">
           <span>
-      <div id="container">
+      <div id="container_add_new_tender">
     <div id="Create">
-      <h1>Create a new tender</h1>
+      <h1>Add new tender</h1>
       <form method="post" action="{{ path('new_tender') }}">
        <label>
-          Възложител: <input type="text" name="app_bundle_tender_type[name]">
+          Възложител: <input type="text" name="tender[name]">
         </label><br>
        <label>
-          Град: <input type="text" name="app_bundle_tender_type[city]">
+          Град: <input type="text" name="tender[city]">
         </label><br>
        <label>
-         Предмет: <input type="text" name="app_bundle_tender_type[type]">
+         Предмет: <input type="text" name="tender[type]">
         </label><br>
        <label>
-          Прогнозна стойност: <input type="number" name="app_bundle_tender_type[money]">
+          Прогнозна стойност: <input type="number" name="tender[money]">
         </label><br>
         <label>
-          Краен срок: <input type="date" name="app_bundle_tender_type[deadline]"><br>
+          Краен срок: <input type=date name="tender[deadline]"><br>
 
         </label><br>
         <input type="submit" value="Add"><br>
@@ -100,8 +100,7 @@
         </tbody>
       </table>
       <br/>
-      <a href="{{ path('create') }}">Create a new object</a>
-      or get back to <a href="{{ path('homepage') }}">Index page</a>
+      Back to <a href="{{ path('homepage') }}">Index page</a>
     </div>
   </div>
     </div>
