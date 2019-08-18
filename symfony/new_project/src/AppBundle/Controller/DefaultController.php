@@ -20,6 +20,7 @@ class DefaultController extends Controller
   public function indexAction(Request $request)
   {
     $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
     return $this->render('home/index.html.twig', ['users' => $users]);
   }
 }

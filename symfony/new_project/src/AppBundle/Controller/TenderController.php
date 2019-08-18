@@ -2,6 +2,7 @@
 /**
  * @Author Miroslav Mitov
  */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tender;
@@ -30,7 +31,7 @@ class TenderController extends Controller
       return $this->redirectToRoute('all_tenders');
     }
 
-    return $this->render('home/list.html.twig', ['form' => $form->createView()]);
+    return $this->render('tenders/list.html.twig', ['form' => $form->createView()]);
   }
 
   /**
@@ -40,7 +41,7 @@ class TenderController extends Controller
   public function create(Request $request)
   {
     $form = $this->createForm(TenderType::class);
-    return $this->render('home/list.html.twig',
+    return $this->render('tenders/list.html.twig',
       ['form' => $form->createView()
       ]);
   }
@@ -53,22 +54,44 @@ class TenderController extends Controller
   {
     $tenders = $this->getDoctrine()->getRepository(Tender::class)->findBy([], ['deadline' => 'ASC']);
 
-    return $this->render("home/list.html.twig", ['tenders' => $tenders]);
+    return $this->render("tenders/list.html.twig", ['tenders' => $tenders]);
   }
+
 
   /**
    * @Route("/tenders/delete/{id}", name="delete_tender")
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param $id
+   * @param Request $request
    * @return \Symfony\Component\HttpFoundation\Response
    */
   public function deleteTender($id, Request $request)
   {
-    $em = $this->getDoctrine()->getManager();
-    $tenders = $em->getRepository('AppBundle:Tender')->find($id);
-    $em->remove($tenders);
-    $em->flush();
+    $tender = $this->getDoctrine()->getRepository(Tender::class)->find($id);
 
+    if ($tender === null) {
+      return $this->redirectToRoute('all_tenders');
+    }
+    return $this->render('tenders/delete.html.twig', ['tender' => $tender]);
+  }
+
+
+  /**
+   * @Route("/tenders/delete/process/{id}", name="delete_tender_process")
+   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+   * @param $id
+   * @param Request $request
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
+  public function deleteTenderProcess($id, Request $request)
+  {
+    $tender = $this->getDoctrine()->getRepository(Tender::class)->find($id);
+    if ($tender === null) {
+      return $this->redirectToRoute('all_tenders');
+    }
+    $em = $this->getDoctrine()->getManager();
+    $em->remove($tender);
+    $em->flush();
     return $this->redirectToRoute('all_tenders');
   }
 
@@ -85,7 +108,7 @@ class TenderController extends Controller
     $tenders = $repo->find($id);
 
     if ($tenders === null) {
-      return $this->redirect("/");
+      return $this->redirectToRoute('all_tenders');
     }
 
     $form = $this->createForm(TenderType::class, $tenders);
@@ -97,11 +120,11 @@ class TenderController extends Controller
       $em->persist($tenders);
       $em->flush();
 
-      return $this->redirect('/tenders/all');
+      return $this->redirectToRoute('all_tenders');
     }
 
     return $this->render(
-      'home/edit.html.twig',
+      'tenders/edit.html.twig',
       ['tenders' => $tenders, 'form' => $form->createView()]);
   }
 

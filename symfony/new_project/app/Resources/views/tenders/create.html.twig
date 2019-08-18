@@ -1,0 +1,32 @@
+{% block body %}
+
+  <div class="modal-body">
+    <div id="container_add_new_tender">
+      <h1>Add new tender</h1>
+      <form method="post" action="{{ path('new_tender') }}">
+        <div id="create-container">
+          Name*: <label>
+          <input type="text" name="tender[name]">
+        </label><br>
+          City*: <label>
+          <input type="text" name="tender[city]">
+        </label><br>
+          Type*: <label>
+          <input type="text" name="tender[type]">
+        </label><br>
+          Budget: <label>
+          <input type="number" name="tender[money]">
+        </label><br>
+          Deadline*: <label>
+          <input type="date"  name="tender[deadline]">
+        </label><br><br>
+        <div id="required_fields">
+          * Required fields
+        </div>
+        </div>
+        <br><input type="submit" value="Add">
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

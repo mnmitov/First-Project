@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="container">
+    <h1>User profile</h1>
+    <div class="col-sm-3">
+Hello, {{ user.firstName }} {{ user.lastName }}!<br>
+     You are logged in as: {{ user.email }}<br>
+Your account was created on: {{ user.createdOn|date('jS F, Y \\a\\t H:i') }}<br>
+      User additional information: {{ user.additInfo }}<br>
+      <a href="{{ path('user_delete', {'id': user.id}) }}" onclick="confirm('Are you sure?')">Delete your user account!</a>
+    </div>
+  </div>
+
+{% endblock %}
+

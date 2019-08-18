@@ -14,10 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends Controller
 {
   /**
- * @Route("/register", name="user_register")
- * @param Request $request
- * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
- */
+   * @Route("/register", name="user_register")
+   * @param Request $request
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+   * @throws \Exception
+   */
   public function registerAction(Request $request)
   {
     $user = new User();

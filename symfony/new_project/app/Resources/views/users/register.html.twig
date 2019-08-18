@@ -1,18 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <span>
-<div id="container">
-<h2>User registration</h2>
-<form method="post" name="secure_register" action="{{ path('user_register')}}">
-  Create User Name: <input type="text" name="app_bundle_user_type[username]"><br>
-  Email: <input type="email" name="app_bundle_user_type[email]"><br>
-  Password: <input type="password" name="app_bundle_user_type[password]"><br>
-  Confirm password: <input type="password" name="app_bundle_user_type[password]"><br>
-  <input type="hidden" name="{{ csrf_token('secure_register') }}">
-  <input type="submit" value="Register user"> or
-  <input type="button" onclick="history.back()" value="Go back">
-</form>
-</div>
-  </span>
+  <div id="container">
+    <h1>User registration form</h1>
+    <form method="post" name="secure_register" action="{{ path('user_register') }}">
+      <div id="register-container">
+        <input type="email" placeholder="Your Email" name="user[email]"><br>
+        <input type="text" placeholder="Your First Name" name="user[firstName]"><br>
+        <input type="text" placeholder="Your Last Name" name="user[lastName]"><br>
+        <input type="date" placeholder="When are you born" name="user[bornDate]"><br>
+        <input type="password" placeholder="Password" name="user[password][first]"><br>
+        <input type="password" placeholder="Confirm password" name="user[password][second]"><br>
+        <input type="text" placeholder="Additional information" name="user[additInfo]"><br>
+        <input type="hidden" name="{{ csrf_token('secure_register') }}">
+      </div>
+      <br>
+      <input type="submit" value="Register"> or
+      <input type="button" onclick="history.back()" value="Go back">
+    </form>
+  </div>
 {% endblock %}

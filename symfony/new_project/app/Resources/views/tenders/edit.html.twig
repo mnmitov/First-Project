@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="container">
+    <h1>Tender Profile</h1>
+    <form method="post" action="{{ path('edit_tender', {'id' : tenders.id}) }}">
+      <div id="edit-container">
+      Change name: <input type="text" value="{{ tenders.name }}" name="tender[name]"><br>
+      Change city: <input type="text" value="{{ tenders.city }}" name="tender[city]"><br>
+      Change type: <input type="text" value="{{ tenders.type }}" name="tender[type]"><br>
+      Change budget: <input type="number" value="{{ tenders.money }}" name="tender[money]"><br>
+      Change deadline: <input type="date" value="{{ tenders.deadline|date('d.m.Y') }}" name="tender[deadline]"><br>
+      {{ form_row(form._token) }}
+      </div><br>
+      <input type="submit" value="EDIT">
+      <input type="button" onclick="history.back()" value="Go back without any changes">
+    </form>
+  </div>
+{% endblock %}

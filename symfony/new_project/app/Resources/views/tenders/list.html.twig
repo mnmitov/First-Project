@@ -5,105 +5,62 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+    <title>Tenders list</title>
   </head>
-
-  <span><div id="container" xmlns="http://www.w3.org/1999/html">
+  <div id="container">
     <div id="Create">
-
-
       <!-- Trigger the modal with a button -->
 <div class="container">
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add new tender</button><br><br>
-
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
-
         <!-- Modal Header -->
         <div class="modal-header">
           <h2 class="modal-title">Add new tender</h2>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-
         <!-- Modal body -->
-        <div class="modal-body">
-          <span>
-      <div id="container_add_new_tender">
-    <div id="Create">
-      <h1>Add new tender</h1>
-      <form method="post" action="{{ path('new_tender') }}">
-       <label>
-          Възложител: <input type="text" name="tender[name]">
-        </label><br>
-       <label>
-          Град: <input type="text" name="tender[city]">
-        </label><br>
-       <label>
-         Предмет: <input type="text" name="tender[type]">
-        </label><br>
-       <label>
-          Прогнозна стойност: <input type="number" name="tender[money]">
-        </label><br>
-        <label>
-          Краен срок: <input type=date name="tender[deadline]"><br>
-
-        </label><br>
-        <input type="submit" value="Add"><br>
-      </form>
-      <br>
-    </div>
-  </div>
-    </span>
-        </div>
-
+        {% include 'tenders/create.html.twig' %}
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
-
       </div>
     </div>
   </div>
-
 </div>
       <!-- END large modal -->
-
       <table>
         <thead>
         <tr>
           <th>Name</th>
           <th>City</th>
           <th>Type</th>
-          <th>Money</th>
+          <th>Budget<br>[BGN]</th>
           <th>Deadline</th>
           <th>Added on</th>
+          <th>Added by</th>
           <th>Remove</th>
-          <th>Edit</th>
         </tr>
         </thead>
         <tbody>
         {% for tender in tenders %}
           <tr>
-            <td>{{ tender.Name }}</td>
+            <td><a href="{{ path('edit_tender', {'id' : tender.id}) }}">{{ tender.Name }}</a></td>
             <td>{{ tender.City }}</td>
             <td>{{ tender.Type }}</td>
-            <td>{{ tender.Money }} лв.</td>
+            <td>{{ tender.Money }}</td>
             <td><b>{{ tender.Deadline|date('d.m.Y') }}</b></td>
             <td>{{ tender.addedOn|date('d.m.Y') }}</td>
-            <td><a href="{{ path('delete_tender', {'id' : tender.id}) }}"
-                   onclick="return confirm('Are you sure to delete?')">Remove</a></td>
-            <td><a href="{{ path('edit_tender', {'id' : tender.id}) }}">Edit</a></td>
+            <td>{{ app.user.firstName }}<br>{{ app.user.lastName }}</td>
+            <td><a href="{{ path('delete_tender', {'id' : tender.id}) }}">Remove</a></td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
-      <br/>
-      Back to <a href="{{ path('homepage') }}">Index page</a>
     </div>
   </div>
-    </div>
-  </span>
 {% endblock %}
 

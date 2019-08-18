@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="container">
+      <h2>Are you sure you want to delete the following tender:</h2>
+
+      <form method="post" action="{{ path('delete_tender_process', {'id' : tender.id}) }}">
+        <div id="delete_container">
+        Name: {{ tender.name }}<br>
+        City: {{ tender.city }}<br>
+        Type: {{ tender.type }}<br>
+        Budget: {{ tender.money }}<br>
+        Deadline: {{ tender.deadline|date('d M, Y (D)') }}<br>
+        Added On: {{ tender.addedOn|date('d M, Y (D)') }}<br>
+        </div><br><br>
+        <input type="submit" style="background: red" value="DELETE">
+        <input type="button" onclick="history.back()" value="Cancel">
+      </form>
+  </div>
+
+{% endblock %}

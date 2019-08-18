@@ -4,34 +4,51 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>{% block title %}Tender platform{% endblock %}</title>
-
+  <title>{% block title %}Tender and Conference Scheduler Platform{% endblock %}</title>
   {% block header %}
-    <header class="shy-header">
-
-      <ul id="header-bar-left">Public tenders online platform</ul>
-
+    <header>
+      <div class="position-sticky">
+        <ul>
+          {% if app.user %}
+            <li><a href="{{ path('security_logout') }}">Logout</a></li>
+            <li><a href="{{ path('index_profile') }}">My Profile</a></li>
+            <li><a href="{{ path('all_tenders') }}">All scheduled tenders</a></li>
+          {% else %}
+            <li><a href="{{ path('user_register') }}">REGISTER</a></li>
+          {% endif %}
+          <li style="float:left"><a class="active" href="{{ path('homepage') }}"><b>Tender and Conference Scheduler
+                Platform</b></a></li>
+        </ul>
+      </div>
     </header>
   {% endblock %}
-
 </head>
-<body>
+
 {% block stylesheets %}
   <link rel="stylesheet" type="text/css" href="{{ asset('css/stylesheet.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
 {% endblock %}
 {% block body %}{% endblock %}
 {% block javascripts %}
-
+  <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+  <script src="{{ asset('js/moment.min.js') }}"></script>
   <script src="{{ asset('js/bootstrap.js') }}"></script>
   <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-  <script src="{{ asset('js/moment.min.js') }}"></script>
-  <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-  <script>
-      $(function () {
-          $(".shy-header").shyheader();
-      });
-  </script>
 {% endblock %}
-</body>
+
+{% block footer %}
+  <footer>
+    <div id="cont_bottom">
+      {% if app.user %}
+        You are logged in as: {{ app.user.email }}
+      {% else %}
+        You are not logged in.
+      {% endif %}
+
+      <br>Developed by M. Mitov.
+      <br>Today is: {{ "now"|date("jS F, Y (D)") }}
+
+    </div>
+  </footer>
+{% endblock %}
 </html>

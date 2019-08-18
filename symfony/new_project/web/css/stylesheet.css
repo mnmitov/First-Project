@@ -3,42 +3,13 @@ body {
   font: 18px/1.5 sans-serif;
 }
 
-
-.shy-header {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  -webkit-transition: all 200ms ease-in;
-  transition: all 200ms ease-in;
-  background: #F5F5F5;
-  border-bottom: solid #CCCCCC 1px;
-  line-height: 50px;
-}
-
-#header-bar-left {
-  display: inline;
-}
-
-#header-bar-right {
-  display: inline;
-}
-
-.is-watching {
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-}
-
 input {
-  width: 50%;
-  padding: 10px 18px;
-  margin: 3px 0;
+  width: 100%;
   display: inline-block;
+  padding: 10px 18px;
+  margin: 3px auto;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
 }
 
 input[type=button], input[type=submit], .btn-primary, .btn-secondary {
@@ -158,20 +129,19 @@ code {
     border-radius: 50px;
     border-color: #CCCCCC;
     border-width: 1px;
-    margin-top: 60px;
+    margin-top: 10px;
   }
 
   #container_add_new_tender {
     background: #F5F5F5;
     height: fit-content;
     max-width: 100%;
-    text-align: justify;
+    text-align: -webkit-center;
     padding: 2em;
     border-style: solid;
     border-radius: 50px;
     border-color: #CCCCCC;
     border-width: 1px;
-    margin-top: 60px;
   }
 
   #icon-book {
@@ -238,7 +208,6 @@ code {
   -webkit-transform: translate(0, -50px);
   transform: translate(0, -50px)
 }
-
 
 
 .modal.show .modal-dialog {
@@ -454,3 +423,107 @@ button.close {
   -moz-appearance: none;
   appearance: none
 }
+
+ul {
+  position: sticky;
+  top: 0;
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  overflow: auto;
+  background-color: #F5F5F5;
+  border-style: solid;
+  border-color: #CCCCCC;
+  border-radius: 50px;
+  border-width: 1px;
+}
+
+li {
+  float: right;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#required_fields {
+  color: red;
+  font-size: small;
+  text-align: -webkit-center;
+}
+
+#delete_container {
+  align-items: center;
+  display: inline-block;
+  text-align: left;
+  width: 250px;
+}
+
+#edit-container {
+  align-items: center;
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+}
+
+#create-container {
+  align-items: center;
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+}
+
+#login-container {
+  align-items: center;
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+}
+
+#register-container {
+  align-items: center;
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+}
+
+/* Change the link color to #111 (black) on hover */
+/*li a:hover {*/
+/*  background-color: #4CAF50;*/
+/*  color: white;*/
+/*}*/
+
+@media screen and (max-width: 600px) {
+  ul li.right,
+  ul li {
+    float: none;
+  }
+}
+
+
+#cont_bottom {
+  font-size: 12px;
+  margin-top: 10px;
+  padding-left: 50px;
+display: inline-block;
+}
+
+@supports ((position:-webkit-sticky) or (position:sticky)) {
+  .sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020
+  }
+}
+
+
