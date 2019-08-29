@@ -4,12 +4,22 @@
 
   <div id="container">
     <h1>User profile</h1>
-    <div class="col-sm-3">
-Hello, {{ user.firstName }} {{ user.lastName }}!<br>
-     You are logged in as: {{ user.email }}<br>
-Your account was created on: {{ user.createdOn|date('jS F, Y \\a\\t H:i') }}<br>
-      User additional information: {{ user.additInfo }}<br>
-      <a href="{{ path('user_delete', {'id': user.id}) }}" onclick="confirm('Are you sure?')">Delete your user account!</a>
+    <div id="register-container">
+      {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+          <div class="flash-{{ label }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endfor %}
+      <br>
+      Hello, {{ user.firstName }} {{ user.lastName }}!<br>
+      You are logged in as: {{ user.email }}<br>
+      Your account was created on: {{ user.createdOn|date('jS F, Y \\a\\t H:i') }}<br><hr>
+      Your birthdate is {{ user.bornDate|date('d.m.Y') }}. You are {{ user.gender|lower }} and you are from {{ user.livingPlace }}<br>
+      More information about you: {{ user.additInfo }}<br><hr>
+      <a href="{{ path('edit_profile', {'id': user.id}) }}">Edit your details</a> | <a href="{{ path('my_tenders') }}">Tenders added by me</a><br><br>
+      <a style="color: red" href="{{ path('user_delete', {'id': user.id}) }}">Delete your account!</a>
     </div>
   </div>
 

@@ -496,6 +496,11 @@ li a {
   width: 50%;
 }
 
+select {
+  display: inline-block;
+  width: 50%;
+}
+
 /* Change the link color to #111 (black) on hover */
 /*li a:hover {*/
 /*  background-color: #4CAF50;*/
@@ -526,4 +531,12 @@ display: inline-block;
   }
 }
 
+.flash-success {
+  color: green;
+  font-size: 16px;
+}
 
+.flash-warning {
+   color: red;
+   font-size: small;
+ }

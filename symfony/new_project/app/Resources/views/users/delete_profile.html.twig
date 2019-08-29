@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="container">
+    <h1>User profile</h1>
+    <div class="col-sm-3">
+      <div id="edit-container">
+        <form method="post" action="{{ path('user_delete_process', {'id' : user.id}) }}">
+          <h2>Are you sure you want to delete permanently your profile?</h2>
+          Your email: {{ user.email }} <br>
+          <input type="submit" style="background: red" value="DELETE">
+          <input type="button" onclick="history.back()" value="Cancel">
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

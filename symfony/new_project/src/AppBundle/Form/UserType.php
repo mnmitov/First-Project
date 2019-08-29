@@ -5,13 +5,15 @@ namespace AppBundle\Form;
 use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class UserType extends AbstractType
 {
@@ -22,15 +24,31 @@ class UserType extends AbstractType
       ->add('firstName', TextType::class)
       ->add('lastName', TextType::class)
       ->add('bornDate', BirthdayType::class, [
-        'widget' => 'single_text',
-        'html5' => false,
-        'attr' => ['class' => 'bootstrap-datetimepicker.min.js']
-      ])
+        'widget' => 'single_text',]
+      )
       ->add('password', RepeatedType::class, array(
         'type' => PasswordType::class,
         'first_options' => array('label' => 'Password'),
         'second_options' => array('label' => 'Repeat password')))
-      ->add('additInfo', TextType::class);
+      ->add('additInfo', TextareaType::class)
+      ->add('gender', ChoiceType::class, [
+        'choices' => [
+          'Male' => 'Male',
+          'Female' => 'Female',
+        ]
+      ])
+      ->add('livingPlace', ChoiceType::class, [
+        'choices' => [
+          'Sofia' => 'Sofia',
+          'Plovdiv' => 'Plovdiv',
+          'Varna' => 'Varna',
+          'Burgas' => 'Burgas',
+          'Stara Zagora' => 'Stara Zagora',
+          'Ruse' => 'Ruse',
+          'Dobrich' =>'Dobrich',
+        ]
+      ])
+      ->add('submit', SubmitType::class);
   }
 
   public function configureOptions(OptionsResolver $resolver)

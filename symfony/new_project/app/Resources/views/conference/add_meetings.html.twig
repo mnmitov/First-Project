@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="container">
+    <h1>Schedule a meeting</h1>
+    <div id="register-container">
+      {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+          <div class="flash-{{ label }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endfor %}
+      <br>
+
+    </div>
+  </div>
+
+{% endblock %}
+

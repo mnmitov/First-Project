@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="container">
+    <h1>User profile</h1>
+    <h2>Change your details</h2>
+    <div class="col-sm-3">
+      <div id="edit-container">
+        <form method="post" action="{{ path('edit_profile_process', {'id' : user.id}) }}">
+          <hr>
+          Change your First Name: <input type="text" value="{{ user.firstName }}" name="user[firstName]"><br>
+          Change your Last Name: <input type="text" value="{{ user.lastName }}" name="user[lastName]"><br>
+          Change your additional information: <input type="text" value="{{ user.additInfo }}"
+                                                     name="user[additInfo]"><br>
+          <label>
+            <select name="user[livingPlace]">
+              <option value="null" name="user[livingPlace]">Select your city</option>
+              <option value="Sofia" name="user[livingPlace]">Sofia</option>
+              <option value="Plovdiv" name="user[livingPlace]">Plovdiv</option>
+              <option value="Varna" name="user[livingPlace]">Varna</option>
+              <option value="Burgas" name="user[livingPlace]">Burgas</option>
+              <option value="Stara Zagora" name="user[livingPlace]">Stara Zagora</option>
+              <option value="Ruse" name="user[livingPlace]">Ruse</option>
+              <option value="Dobrich" name="user[livingPlace]">Dobrich</option>
+            </select>
+          </label><br>
+          {{ form_row(form._token)}}
+          <input type="submit" value="Change your details">
+          <input type="button" onclick="history.back()" value="Go back without any changes">
+        </form>
+{#        <hr><br>#}
+{#        <h2>Change your password:</h2>#}
+{#        <form method="post" action="{{ path('change_password', {'id' : user.id}) }}">#}
+{#          Old Password: <input type="password" name="oldPassword[password]"><br>#}
+{#          Set new password: <input type="password" name="password[password][first]"><br>#}
+{#          Confirm new password: <input type="password" name="password[password][second]"><br>#}
+{#          {{ form_row(form._token) }}#}
+{#          <input type="submit" value="Set new password and Logout">#}
+{#          <input type="button" onclick="history.back()" value="Go back without any changes">#}
+{#        </form>#}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

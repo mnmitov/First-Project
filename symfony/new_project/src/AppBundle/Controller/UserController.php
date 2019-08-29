@@ -25,19 +25,18 @@ class UserController extends Controller
     $form = $this->createForm(UserType::class, $user);
     $form->handleRequest($request);
 
-    if ($form->isSubmitted()) {
+    if ($form->isSubmitted() && $form->isValid()) {
       $passwordHash =
         $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
       $user->setPassword($passwordHash);
-
       $em = $this->getDoctrine()->getManager();
       $em->persist($user);
       $em->flush();
-
+      $this->addFlash('success','You have been successfully registered!');
       return $this->redirectToRoute('homepage');
     }
 
-    return $this->render('users/register.html.twig');
+    return $this->render('users/register.html.twig', ['form' => $form->createView()]);
   }
 
 }

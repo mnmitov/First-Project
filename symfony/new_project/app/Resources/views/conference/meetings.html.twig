@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="container">
+    <h1>Conference scheduler</h1>
+    <div class="container">
+      <button type="button" class="btn btn-primary" onclick="window.location='{{ path('add_meeting') }}'">Schedule a meeting
+      </button>
+    </div>
+    <div id="register-container">
+      {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+          <div class="flash-{{ label }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endfor %}
+      <br>
+
+    </div>
+  </div>
+
+{% endblock %}
+

@@ -5,6 +5,7 @@
     <title>Tenders list</title>
   </head>
   <div id="container">
+    <h1>My added and assigned tenders</h1>
     {% for label, messages in app.flashes(['success', 'warning']) %}
       {% for message in messages %}
         <div class="flash-{{ label }}">
@@ -12,11 +13,6 @@
         </div>
       {% endfor %}
     {% endfor %}
-    <div class="container">
-      <button type="button" class="btn btn-primary" onclick="window.location='{{ path('create') }}'">Add new tender
-      </button>
-      <br><br>
-    </div>
 
     <table>
       <thead>

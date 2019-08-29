@@ -17,33 +17,35 @@ class TenderController extends Controller
   /**
    * @Route("/new_tender", name="new_tender")
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+   * @param Request $request
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+   * @throws \Exception
    */
   public function tenderRegister(Request $request)
   {
     $tender = new Tender();
     $form = $this->createForm(TenderType::class, $tender);
     $form->handleRequest($request);
-    if ($form->isSubmitted()) {
+
+    if ($form->isSubmitted() && $form->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->persist($tender);
       $em->flush();
-
+      $this->addFlash('success', 'Successfully added new tender!');
       return $this->redirectToRoute('all_tenders');
     }
-
-    return $this->render('tenders/list.html.twig', ['form' => $form->createView()]);
+    return $this->render('tenders/create.html.twig', ['form' => $form->createView()]);
   }
 
   /**
    * @Route ("/tenders/create", name="create")
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+   * @return \Symfony\Component\HttpFoundation\Response
    */
-  public function create(Request $request)
+  public function create()
   {
-    $form = $this->createForm(TenderType::class);
-    return $this->render('tenders/list.html.twig',
-      ['form' => $form->createView()
-      ]);
+    return $this->render('tenders/create.html.twig',
+      ['form' => $this->createForm(TenderType::class)->createView()]);
   }
 
   /**
@@ -52,9 +54,10 @@ class TenderController extends Controller
    */
   public function allTenders()
   {
+    $form = $this->createForm(TenderType::class);
     $tenders = $this->getDoctrine()->getRepository(Tender::class)->findBy([], ['deadline' => 'ASC']);
-
-    return $this->render("tenders/list.html.twig", ['tenders' => $tenders]);
+    return $this->render("tenders/list.html.twig", ['tenders' => $tenders,
+      'form' => $form->createView()]);
   }
 
 
@@ -100,21 +103,19 @@ class TenderController extends Controller
    * @Route("/tenders/edit/{id}", name="edit_tender")
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param $id
+   * @param Request $request
    * @return \Symfony\Component\HttpFoundation\Response
    */
   public function editTender($id, Request $request)
   {
     $repo = $this->getDoctrine()->getRepository(Tender::class);
     $tenders = $repo->find($id);
-
     if ($tenders === null) {
       return $this->redirectToRoute('all_tenders');
     }
 
     $form = $this->createForm(TenderType::class, $tenders);
-
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->persist($tenders);

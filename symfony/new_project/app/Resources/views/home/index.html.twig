@@ -7,10 +7,20 @@
     {% if app.user %}
     {% else %}
       <h2>Login</h2>
+      {% if error %}
+        <div style="color: red; font-size: 12px">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
+      {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+          <div class="flash-{{ label }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endfor %}
       <form method="post" name="authenticate" action="{{ path('security_login') }}">
         <div id="login-container">
-          <input type="text" placeholder="Type your email here!" name="_username"><br>
-          <input type="password" placeholder="Type your password!" name="_password"><br>
+          <input type="text" required="required" placeholder="Type your email here!" name="_username" value="{{ last_username }}"><br>
+          <input type="password" required="required" placeholder="Type your password!" name="_password"><br>
         </div>
         <br>
         <input type="hidden" name="_csrf_token"
