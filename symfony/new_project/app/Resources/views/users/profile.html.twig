@@ -18,7 +18,7 @@
       Your account was created on: {{ user.createdOn|date('jS F, Y \\a\\t H:i') }}<br><hr>
       Your birthdate is {{ user.bornDate|date('d.m.Y') }}. You are {{ user.gender|lower }} and you are from {{ user.livingPlace }}<br>
       More information about you: {{ user.additInfo }}<br><hr>
-      <a href="{{ path('edit_profile', {'id': user.id}) }}">Edit your details</a> | <a href="{{ path('my_tenders') }}">Tenders added by me</a><br><br>
+      <a href="{{ path('edit_profile', {'id': user.id}) }}">Edit your details</a> | <a href="{{ path('my_tenders', {'id': user.id}) }}">Tenders added by me</a><br><br>
       <a style="color: red" href="{{ path('user_delete', {'id': user.id}) }}">Delete your account!</a>
     </div>
   </div>

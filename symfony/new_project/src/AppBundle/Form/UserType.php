@@ -30,7 +30,7 @@ class UserType extends AbstractType
         'type' => PasswordType::class,
         'first_options' => array('label' => 'Password'),
         'second_options' => array('label' => 'Repeat password')))
-      ->add('additInfo', TextareaType::class)
+      ->add('additInfo', TextType::class)
       ->add('gender', ChoiceType::class, [
         'choices' => [
           'Male' => 'Male',

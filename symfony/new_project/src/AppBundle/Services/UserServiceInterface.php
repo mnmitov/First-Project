@@ -4,7 +4,9 @@
 namespace AppBundle\Services;
 
 
-class UserServiceInterface
-{
+use AppBundle\Entity\User;
 
+interface UserServiceInterface
+{
+public function register(User $user) : bool;
 }

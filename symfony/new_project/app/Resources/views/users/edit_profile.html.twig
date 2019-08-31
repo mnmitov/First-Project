@@ -5,9 +5,16 @@
   <div id="container">
     <h1>User profile</h1>
     <h2>Change your details</h2>
-    <div class="col-sm-3">
+    <div class="container">
       <div id="edit-container">
-        <form method="post" action="{{ path('edit_profile_process', {'id' : user.id}) }}">
+        {% for label, messages in app.flashes(['success', 'warning']) %}
+          {% for message in messages %}
+            <div class="flash-{{ label }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+        <form method="post" action="{{ path('edit_profile_process', {'id': user.id}) }}">
           <hr>
           Change your First Name: <input type="text" value="{{ user.firstName }}" name="user[firstName]"><br>
           Change your Last Name: <input type="text" value="{{ user.lastName }}" name="user[lastName]"><br>
@@ -15,7 +22,7 @@
                                                      name="user[additInfo]"><br>
           <label>
             <select name="user[livingPlace]">
-              <option value="null" name="user[livingPlace]">Select your city</option>
+              <option value="" name="user[livingPlace]">Select your city</option>
               <option value="Sofia" name="user[livingPlace]">Sofia</option>
               <option value="Plovdiv" name="user[livingPlace]">Plovdiv</option>
               <option value="Varna" name="user[livingPlace]">Varna</option>
@@ -25,9 +32,10 @@
               <option value="Dobrich" name="user[livingPlace]">Dobrich</option>
             </select>
           </label><br>
+
           {{ form_row(form._token)}}
-          <input type="submit" value="Change your details">
-          <input type="button" onclick="history.back()" value="Go back without any changes">
+          <input type="submit" name="user[submit]" value="Change your details">
+          <input type="button" onclick="history.back()" value="Go back without any changes &raquo;">
         </form>
 {#        <hr><br>#}
 {#        <h2>Change your password:</h2>#}

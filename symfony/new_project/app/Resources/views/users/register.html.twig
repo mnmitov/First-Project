@@ -9,69 +9,67 @@
   <div id="container">
     <h1>User registration form</h1>
     <form method="post">
-<small>
+      <small>
   <span style="text-align: center; color: red">
         {% for error in form.vars.errors.form.getErrors(true) %}
           {{ error.message }}<br>
         {% endfor %}
   </span>
-</small>
+      </small>
       <div id="register-container">
         <input type="email" placeholder="Your Email" name="user[email]"><br>
         <input type="text" placeholder="Your First Name" name="user[firstName]"><br>
         <input type="text" placeholder="Your Last Name" name="user[lastName]"><br>
-        <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd">
-          <input class="form-control" size="16" type="text" placeholder="Pick your birth date *" value="" readonly name="user[bornDate]">
+        <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
+          <input class="form-control" type="text" placeholder="Pick your birth date *" value="" readonly
+                 name="user[bornDate]">
           <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
         <input type="password" placeholder="Password" name="user[password][first]"><br>
         <input type="password" placeholder="Confirm password" name="user[password][second]"><br>
         <label>
-          <textarea rows="3" placeholder="Additional information" name="user[additInfo]"></textarea>
-        </label><br>
-        <label>
-          <select name="user[gender]">
-            <option>Select your gender</option>
-            <option value="Male" name="user[gender]">Male</option>
-            <option value="Female" name="user[gender]">Female</option>
-          </select>
+          <input type="text" placeholder="Additional information" name="user[additInfo]">
         </label>
 
-        <label>
-          <select name="user[livingPlace]">
-            <option>Select your city</option>
-            <option value="Sofia" name="user[livingPlace]">Sofia</option>
-            <option value="Plovdiv" name="user[livingPlace]">Plovdiv</option>
-            <option value="Varna" name="user[livingPlace]">Varna</option>
-            <option value="Burgas" name="user[livingPlace]">Burgas</option>
-            <option value="Stara Zagora" name="user[livingPlace]">Stara Zagora</option>
-            <option value="Ruse" name="user[livingPlace]">Ruse</option>
-            <option value="Dobrich" name="user[livingPlace]">Dobrich</option>
-          </select>
-        </label>
-        {{ form_row(form._token)}}
+        <select id="user-register-options" name="user[gender]">
+          <option value="" name="user[gender]">Select your gender</option>
+          <option value="Male" name="user[gender]">Male</option>
+          <option value="Female" name="user[gender]">Female</option>
+        </select>
+        <select id="user-register-options" name="user[livingPlace]">
+          <option value="" name="user[livingPlace]">Select your city</option>
+          <option value="Sofia" name="user[livingPlace]">Sofia</option>
+          <option value="Plovdiv" name="user[livingPlace]">Plovdiv</option>
+          <option value="Varna" name="user[livingPlace]">Varna</option>
+          <option value="Burgas" name="user[livingPlace]">Burgas</option>
+          <option value="Stara Zagora" name="user[livingPlace]">Stara Zagora</option>
+          <option value="Ruse" name="user[livingPlace]">Ruse</option>
+          <option value="Dobrich" name="user[livingPlace]">Dobrich</option>
+        </select>
+
+        {{ form_row(form._token) }}
       </div>
       <br>
       <input type="submit" name="user[submit]" value="Register"> or
-      <input type="button" onclick="history.back()" value="Go back">
+      <input type="button" onclick="history.back()" value="Go back &raquo;">
     </form>
   </div>
-{% block javascripts %}
-  <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
-  <script type="text/javascript">
-      $('.form_date').datetimepicker({
-          weekStart: 1,
-          todayBtn:  0,
-          autoclose: 1,
-          todayHighlight: 1,
-          startView: 4,
-          minView: 2,
-          forceParse: 0
-      });
-  </script>
-{% endblock %}
+  {% block javascripts %}
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script type="text/javascript">
+        $('.form_date').datetimepicker({
+            weekStart: 1,
+            todayBtn: 0,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 4,
+            minView: 2,
+            forceParse: 0
+        });
+    </script>
+  {% endblock %}
 {% endblock %}
 

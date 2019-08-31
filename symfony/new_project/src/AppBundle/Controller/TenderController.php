@@ -28,6 +28,7 @@ class TenderController extends Controller
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $tender->setOwner($this->getUser());
       $em = $this->getDoctrine()->getManager();
       $em->persist($tender);
       $em->flush();
@@ -51,6 +52,7 @@ class TenderController extends Controller
   /**
    * @Route("/tenders/all", name="all_tenders")
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+   * @return \Symfony\Component\HttpFoundation\Response
    */
   public function allTenders()
   {
@@ -113,7 +115,6 @@ class TenderController extends Controller
     if ($tenders === null) {
       return $this->redirectToRoute('all_tenders');
     }
-
     $form = $this->createForm(TenderType::class, $tenders);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {

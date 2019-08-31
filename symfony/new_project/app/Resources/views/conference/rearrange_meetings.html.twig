@@ -3,20 +3,20 @@
 {% block body %}
 
   <div id="container">
-    <h1>Schedule a meeting</h1>
+    <h1>Rearrange meeting</h1>
     <div>
 
-      <form method="post" action="{{ path('add_meeting') }}">
+      <form method="post">
   <div style="text-align: center; color: red">
         {% for error in form.vars.errors.form.getErrors(true) %}
           {{ error.message }}<br>
         {% endfor %}
   </div>
         <div id="register-container">
-          <input type="text" placeholder="Meeting place" name="meeting[meetingPlace]"><br>
-          <input type="text" placeholder="Meeting subject" name="meeting[meetingSubject]"><br>
+          <input type="text" value="{{ meeting.meetingPlace }}" name="meeting[meetingPlace]"><br>
+          <input type="text" value="{{ meeting.meetingSubject }}" name="meeting[meetingSubject]"><br>
           <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
-            <input class="form-control" type="text" placeholder="Pick the pick your meeting date" value=""
+            <input class="form-control" type="text" placeholder="Pick a new meeting date" value="{{ meeting.meetingDate|date('d.m.Y') }}"
                    readonly name="meeting[meetingDate]">
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -27,7 +27,7 @@
           {{ form_row(form._token) }}
         </div>
         <br>
-        <input type="submit" name="meeting[submit]" value="Schedule"> or
+        <input type="submit" name="meeting[submit]" value="Rearrange your meeting!"> or
         <input type="button" onclick="history.back()" value="Go back &raquo;">
       </form>
     </div>

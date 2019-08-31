@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Tender;
 use AppBundle\Entity\User;
 use AppBundle\Form\TenderType;
+use AppBundle\Form\UserEditType;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -88,7 +89,7 @@ class UserProfileController extends Controller
   }
 
   /**
-   * @Route("/user/profile/edit/{id}", name="edit_profile_process", methods={"POST"})
+   * @Route("/user/profile/edit/edit/{id}", name="edit_profile_process")
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param $id
    * @param Request $request
@@ -141,15 +142,5 @@ class UserProfileController extends Controller
 //    return $this->render('users/edit_profile.html.twig', array('form' => $form->createView()));
 //  }
 
-  /**
-   * @Route("/user/my_tenders", name="my_tenders")
-   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-   */
-  public function myTenders()
-  {
-    $form = $this->createForm(TenderType::class);
-    $tenders = $this->getDoctrine()->getRepository(Tender::class)->findBy([], ['deadline' => 'ASC']);
-    return $this->render("users/user_tenders.html.twig", ['tenders' => $tenders,
-      'form' => $form->createView()]);
-  }
+
 }

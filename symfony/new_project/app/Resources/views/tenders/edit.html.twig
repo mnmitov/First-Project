@@ -10,11 +10,33 @@
       Change city: <input type="text" value="{{ tenders.city }}" name="tender[city]"><br>
       Change type: <input type="text" value="{{ tenders.type }}" name="tender[type]"><br>
       Change budget: <input type="number" value="{{ tenders.money }}" name="tender[money]"><br>
-      Change deadline: <input type="date" value="{{ tenders.deadline|date('d.m.Y') }}" name="tender[deadline]"><br>
+      Change deadline: <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
+          <input class="form-control" type="text" placeholder="Change deadline for the tender *" value="{{ tenders.deadline }}"
+                 readonly name="tender[deadline]">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
       {{ form_row(form._token) }}
       </div><br>
       <input type="submit" value="EDIT">
-      <input type="button" onclick="history.back()" value="Go back without any changes">
+      <input type="button" onclick="history.back()" value="Go back without any changes &raquo;">
     </form>
   </div>
+
+  {% block javascripts %}
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script type="text/javascript">
+        $('.form_date').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            startDate: new Date(),
+            minView: 2
+        });
+    </script>
+  {% endblock %}
 {% endblock %}

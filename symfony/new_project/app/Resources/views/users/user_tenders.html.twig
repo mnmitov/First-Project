@@ -14,7 +14,7 @@
       {% endfor %}
     {% endfor %}
 
-    <table>
+    <table id="tender-table">
       <thead>
       <tr>
         <th>Name</th>
@@ -23,21 +23,19 @@
         <th>Budget<br>[BGN]</th>
         <th>Deadline</th>
         <th>Added on</th>
-        <th>Added by</th>
         <th>Remove</th>
       </tr>
       </thead>
       <tbody>
       {% for tender in tenders %}
         <tr>
-          <td><a href="{{ path('edit_tender', {'id' : tender.id}) }}">{{ tender.Name }}</a></td>
-          <td>{{ tender.City }}</td>
-          <td>{{ tender.Type }}</td>
-          <td>{{ tender.Money }}</td>
-          <td><b>{{ tender.Deadline|date('d.m.Y') }}</b></td>
-          <td>{{ tender.addedOn|date('d.m.Y') }}</td>
-          <td>{{ tender.addedBy }}</td>
-          <td><a href="{{ path('delete_tender', {'id' : tender.id}) }}">Remove</a></td>
+          <td><a href="{{ path('edit_tender', {'id' : tender.owner.id}) }}">{{ tender.owner.Name }}</a></td>
+          <td>{{ tender.owner.City }}</td>
+          <td>{{ tender.owner.Type }}</td>
+          <td>{{ tender.owner.Money }}</td>
+          <td><b>{{ tender.owner.Deadline|date('d.m.Y') }}</b></td>
+          <td>{{ tender.owner.addedOn|date('d.m.Y') }}</td>
+          <td><a href="{{ path('delete_tender', {'id' : tender.owner.id}) }}">Remove</a></td>
         </tr>
       {% endfor %}
       </tbody>

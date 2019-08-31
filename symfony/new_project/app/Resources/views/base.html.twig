@@ -26,8 +26,7 @@
 </head>
 
 {% block stylesheets %}
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/stylesheet.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/datetimepicker.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -44,10 +43,8 @@
       {% else %}
         You are not logged in.
       {% endif %}
-
-      <br>Developed by M. Mitov.
       <br>Today is: {{ "now"|date("jS F, Y (D)") }}
-
+      <br>Project developed by Miroslav Mitov using PHP v7.2.15 with Symfony Framework 3.4.30.
     </div>
   </footer>
 {% endblock %}

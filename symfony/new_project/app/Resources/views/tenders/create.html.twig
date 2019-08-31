@@ -25,8 +25,8 @@
           <input type="number" placeholder="Budget [BGN] *" name="tender[money]">
         </label><br>
         <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
-            <input class="form-control" type="text" placeholder="Pick the deadline for the tender *" value=""
-                   readonly name="tender[deadline]">
+          <input class="form-control" type="text" placeholder="Pick the deadline for the tender *" value=""
+                 readonly name="tender[deadline]">
           <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
@@ -53,8 +53,8 @@
             autoclose: 1,
             todayHighlight: 1,
             startView: 2,
-            minView: 2,
-            forceParse: 0
+            startDate: new Date(),
+            minView: 2
         });
     </script>
   {% endblock %}

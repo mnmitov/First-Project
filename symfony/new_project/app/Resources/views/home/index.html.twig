@@ -19,8 +19,8 @@
       {% endfor %}
       <form method="post" name="authenticate" action="{{ path('security_login') }}">
         <div id="login-container">
-          <input type="text" required="required" placeholder="Type your email here!" name="_username" value="{{ last_username }}"><br>
-          <input type="password" required="required" placeholder="Type your password!" name="_password"><br>
+          <input type="text" required="required" placeholder="Enter your email!" name="_username" value="{{ last_username }}"><br>
+          <input type="password" required="required" placeholder="Enter your password!" name="_password"><br>
         </div>
         <br>
         <input type="hidden" name="_csrf_token"
