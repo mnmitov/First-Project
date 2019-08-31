@@ -16,39 +16,59 @@
         {% endfor %}
         <form method="post" action="{{ path('edit_profile_process', {'id': user.id}) }}">
           <hr>
-          Change your First Name: <input type="text" value="{{ user.firstName }}" name="user[firstName]"><br>
-          Change your Last Name: <input type="text" value="{{ user.lastName }}" name="user[lastName]"><br>
-          Change your additional information: <input type="text" value="{{ user.additInfo }}"
-                                                     name="user[additInfo]"><br>
+          Your email account: <input type="email" value="{{ user.email }}" name="user[email]"><br>
+          Change your first name: <input type="text" value="{{ user.firstName }}" name="user[firstName]"><small>In case of mistake!</small><br>
+          Change your last name: <input type="text" value="{{ user.lastName }}" name="user[lastName]"><small>In case of mistake!</small><br>
+          <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
+            <input class="form-control" type="text" placeholder="Pick your birth date *" value="" readonly
+                   name="user[bornDate]">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+          </div><small>In case of mistake!</small>
+          <input type="password" value="{{ user.password }}" name="user[password][first]" disabled><br>
+          <input type="password" value="{{ user.password }}" name="user[password][second]" disabled><br>
           <label>
-            <select name="user[livingPlace]">
-              <option value="" name="user[livingPlace]">Select your city</option>
-              <option value="Sofia" name="user[livingPlace]">Sofia</option>
-              <option value="Plovdiv" name="user[livingPlace]">Plovdiv</option>
-              <option value="Varna" name="user[livingPlace]">Varna</option>
-              <option value="Burgas" name="user[livingPlace]">Burgas</option>
-              <option value="Stara Zagora" name="user[livingPlace]">Stara Zagora</option>
-              <option value="Ruse" name="user[livingPlace]">Ruse</option>
-              <option value="Dobrich" name="user[livingPlace]">Dobrich</option>
-            </select>
-          </label><br>
+            Change your additional information: <input type="text" value={{ user.additInfo}} name="user[additInfo]">
+          </label>
 
-          {{ form_row(form._token)}}
+          <select id="user-register-options" name="user[gender]">
+            <option value="" name="user[gender]">Select your gender</option>
+            <option value="Male" name="user[gender]">Male</option>
+            <option value="Female" name="user[gender]">Female</option>
+          </select><small>In case of mistake!</small>
+          <select id="user-register-options" name="user[livingPlace]">
+            <option value="" name="user[livingPlace]">Select your city</option>
+            <option value="Sofia" name="user[livingPlace]">Sofia</option>
+            <option value="Plovdiv" name="user[livingPlace]">Plovdiv</option>
+            <option value="Varna" name="user[livingPlace]">Varna</option>
+            <option value="Burgas" name="user[livingPlace]">Burgas</option>
+            <option value="Stara Zagora" name="user[livingPlace]">Stara Zagora</option>
+            <option value="Ruse" name="user[livingPlace]">Ruse</option>
+            <option value="Dobrich" name="user[livingPlace]">Dobrich</option>
+          </select>
+
+          {{ form_row(form._token) }}
           <input type="submit" name="user[submit]" value="Change your details">
           <input type="button" onclick="history.back()" value="Go back without any changes &raquo;">
         </form>
-{#        <hr><br>#}
-{#        <h2>Change your password:</h2>#}
-{#        <form method="post" action="{{ path('change_password', {'id' : user.id}) }}">#}
-{#          Old Password: <input type="password" name="oldPassword[password]"><br>#}
-{#          Set new password: <input type="password" name="password[password][first]"><br>#}
-{#          Confirm new password: <input type="password" name="password[password][second]"><br>#}
-{#          {{ form_row(form._token) }}#}
-{#          <input type="submit" value="Set new password and Logout">#}
-{#          <input type="button" onclick="history.back()" value="Go back without any changes">#}
-{#        </form>#}
+
       </div>
     </div>
   </div>
-
+  {% block javascripts %}
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script type="text/javascript">
+        $('.form_date').datetimepicker({
+            weekStart: 1,
+            todayBtn: 0,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 4,
+            minView: 2,
+            forceParse: 0
+        });
+    </script>
+  {% endblock %}
 {% endblock %}

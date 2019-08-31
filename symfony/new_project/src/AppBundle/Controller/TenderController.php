@@ -94,6 +94,11 @@ class TenderController extends Controller
     if ($tender === null) {
       return $this->redirectToRoute('all_tenders');
     }
+    $currentUser = $this->getUser();
+    if (!$currentUser->isAuthor($tender) && !$currentUser->isAdmin()) {
+      $this->addFlash('warning', 'You must be author of this tender to delete!');
+      return $this->redirectToRoute('all_tenders');
+    }
     $em = $this->getDoctrine()->getManager();
     $em->remove($tender);
     $em->flush();
@@ -115,6 +120,13 @@ class TenderController extends Controller
     if ($tenders === null) {
       return $this->redirectToRoute('all_tenders');
     }
+
+    $currentUser = $this->getUser();
+    if (!$currentUser->isAuthor($tenders) && !$currentUser->isAdmin()) {
+      $this->addFlash('warning', 'You must be author of this tender to edit!');
+      return $this->redirectToRoute('all_tenders');
+    }
+
     $form = $this->createForm(TenderType::class, $tenders);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -125,9 +137,7 @@ class TenderController extends Controller
       return $this->redirectToRoute('all_tenders');
     }
 
-    return $this->render(
-      'tenders/edit.html.twig',
-      ['tenders' => $tenders, 'form' => $form->createView()]);
+    return $this->render('tenders/edit.html.twig', ['tenders' => $tenders, 'form' => $form->createView()]);
   }
 
 }

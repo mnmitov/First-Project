@@ -2,10 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Tender;
 use AppBundle\Entity\User;
-use AppBundle\Form\TenderType;
-use AppBundle\Form\UserEditType;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -110,37 +107,7 @@ class UserProfileController extends Controller
       $this->addFlash('success', 'Successfully changed your details!');
       return $this->redirectToRoute('index_profile');
     }
-    $this->addFlash('warning', 'There have been errors!');
     return $this->render('users/edit_profile.html.twig', ['user' => $user, 'form' => $form->createView()]);
   }
-
-//  /**
-//   * @Route("/user/profile/password_change/{id}", name="change_password", methods={"POST"})
-//   * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-//   * @param $id
-//   * @param Request $request
-//   * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-//   * @throws \Exception
-//   */
-//  public function passwordChange($id, Request $request)
-//  {
-//    $changePasswordModel = new Password();
-//    $form = $this->createForm(PasswordType::class, $changePasswordModel);
-//    $form->handleRequest($request);
-//
-//    if ($form->isSubmitted() && $form->isValid()) {
-//      $em = $this->getDoctrine()->getManager();
-//      $user = $this->getUser();
-//      $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
-//      $password = $encoder->encodePassword($changePasswordModel->getPassword(), $user);
-//      $user->setPassword($password);
-//      $em->persist($user);
-//      $em->flush();
-//      $this->addFlash('success', 'The password has been changed successfully!');
-//      return $this->redirectToRoute('index_profile');
-//    }
-//    return $this->render('users/edit_profile.html.twig', array('form' => $form->createView()));
-//  }
-
 
 }

@@ -36,7 +36,7 @@ class ConferenceController extends Controller
     $form->handleRequest($request);
 
     if ($form->isSubmitted()) {
-//      $meeting->setOwner($this->getUser()); // TODO: create user -> meeting DB relations;
+      $meeting->setAuthor($this->getUser());
       $em = $this->getDoctrine()->getManager();
       $em->persist($meeting);
       $em->flush();
@@ -57,6 +57,11 @@ class ConferenceController extends Controller
   {
     $meeting = $this->getDoctrine()->getRepository(Meeting::class)->find($id);
     if ($meeting === null) {
+      return $this->redirectToRoute('conference_index');
+    }
+    $currentUser = $this->getUser();
+    if (!$currentUser->isInitiator($meeting) && !$currentUser->isAdmin()) {
+      $this->addFlash('warning', 'You must be the initiator of this meeting to edit!');
       return $this->redirectToRoute('conference_index');
     }
     $em = $this->getDoctrine()->getManager();
@@ -80,6 +85,11 @@ class ConferenceController extends Controller
     $form = $this->createForm(MeetingType::class, $meeting);
     $form->handleRequest($request);
     if ($meeting === null) {
+      return $this->redirectToRoute('conference_index');
+    }
+    $currentUser = $this->getUser();
+    if (!$currentUser->isInitiator($meeting) && !$currentUser->isAdmin()) {
+      $this->addFlash('warning', 'You must be the initiator to rearrange this meeting!');
       return $this->redirectToRoute('conference_index');
     }
     if ($form->isSubmitted() && $form->isValid()) {

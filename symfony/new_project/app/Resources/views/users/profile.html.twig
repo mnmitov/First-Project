@@ -15,11 +15,27 @@
       <br>
       Hello, {{ user.firstName }} {{ user.lastName }}!<br>
       You are logged in as: {{ user.email }}<br>
-      Your account was created on: {{ user.createdOn|date('jS F, Y \\a\\t H:i') }}<br><hr>
-      Your birthdate is {{ user.bornDate|date('d.m.Y') }}. You are {{ user.gender|lower }} and you are from {{ user.livingPlace }}<br>
-      More information about you: {{ user.additInfo }}<br><hr>
-      <a href="{{ path('edit_profile', {'id': user.id}) }}">Edit your details</a> | <a href="{{ path('my_tenders', {'id': user.id}) }}">Tenders added by me</a><br><br>
-      <a style="color: red" href="{{ path('user_delete', {'id': user.id}) }}">Delete your account!</a>
+      You have
+      {% if app.getUser() and (app.getUser().isAdmin()) %}
+        Administrator and
+      {% endif %}
+      User rights.<br>
+      Your account was created on: {{ user.createdOn|date('jS F, Y \\a\\t H:i') }}<br>
+      <hr>
+      Your birthdate is {{ user.bornDate|date('d.m.Y') }}. You are {{ user.gender|lower }} and you are
+      from {{ user.livingPlace }}.<br>
+      More information about you: {{ user.additInfo }}<br>
+      <hr>
+      <button type="button" class="btn btn-primary btn-sm"
+              onclick=location.href="{{ path('edit_profile', {'id': user.id}) }}">Edit your details
+      </button>
+      <button type="button" class="btn btn-primary btn-sm"
+              onclick=location.href="{{ path('my_tenders', {'id': user.id}) }}">Tenders added by me
+      </button>
+      <button type="button" class="btn btn-primary-delete btn-sm"
+              onclick=location.href="{{ path('user_delete', {'id': user.id}) }}">Delete your account!
+      </button>
+
     </div>
   </div>
 

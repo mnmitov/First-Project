@@ -27,21 +27,26 @@
       </tr>
       </thead>
       <tbody>
+
       {% for tender in tenders %}
+        {% if app.getUser() and (app.getUser().isAuthor(tender)) %}
         <tr>
-          <td><a href="{{ path('edit_tender', {'id' : tender.owner.id}) }}">{{ tender.owner.Name }}</a></td>
-          <td>{{ tender.owner.City }}</td>
-          <td>{{ tender.owner.Type }}</td>
-          <td>{{ tender.owner.Money }}</td>
-          <td><b>{{ tender.owner.Deadline|date('d.m.Y') }}</b></td>
-          <td>{{ tender.owner.addedOn|date('d.m.Y') }}</td>
-          <td><a href="{{ path('delete_tender', {'id' : tender.owner.id}) }}">Remove</a></td>
+          <td><a href="{{ path('edit_tender', {'id' : tender.id}) }}">{{ tender.Name }}</a></td>
+          <td>{{ tender.City }}</td>
+          <td>{{ tender.Type }}</td>
+          <td>{{ tender.Money }}</td>
+          <td><b>{{ tender.Deadline|date('d.m.Y') }}</b></td>
+          <td>{{ tender.addedOn|date('d.m.Y') }}</td>
+          <td><a href="{{ path('delete_tender', {'id' : tender.id}) }}">Remove</a></td>
         </tr>
+        {% endif %}
       {% endfor %}
       </tbody>
     </table>
+    <br><button type="button" class="btn btn-primary" onclick="window.location='{{ path('all_tenders') }}'">See all tenders
+    </button>
   </div>
-  </div>
+
   {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

@@ -6,19 +6,24 @@
     <h1>Tender Profile</h1>
     <form method="post" action="{{ path('edit_tender', {'id' : tenders.id}) }}">
       <div id="edit-container">
-      Change name: <input type="text" value="{{ tenders.name }}" name="tender[name]"><br>
-      Change city: <input type="text" value="{{ tenders.city }}" name="tender[city]"><br>
-      Change type: <input type="text" value="{{ tenders.type }}" name="tender[type]"><br>
-      Change budget: <input type="number" value="{{ tenders.money }}" name="tender[money]"><br>
-      Change deadline: <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
-          <input class="form-control" type="text" placeholder="Change deadline for the tender *" value="{{ tenders.deadline }}"
+        Change name: <input type="text" value="{{ tenders.name }}" name="tender[name]"><br>
+        Change city: <input type="text" value="{{ tenders.city }}" name="tender[city]"><br>
+        Change type: <input type="text" value="{{ tenders.type }}" name="tender[type]"><br>
+        Change budget: <input type="number" value="{{ tenders.money }}" name="tender[money]"><br>
+        Change deadline:
+        <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
+          <input class="form-control" type="text" placeholder="Pick the deadline for the tender *" value=""
                  readonly name="tender[deadline]">
           <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
-      {{ form_row(form._token) }}
-      </div><br>
-      <input type="submit" value="EDIT">
+        <label>
+          <input type="hidden" value="{{ app.user.firstName }} {{ app.user.lastName }}" name="tender[addedBy]">
+        </label><br>
+        {{ form_row(form._token) }}
+      </div>
+      <br>
+      <input type="submit" value="Change details">
       <input type="button" onclick="history.back()" value="Go back without any changes &raquo;">
     </form>
   </div>

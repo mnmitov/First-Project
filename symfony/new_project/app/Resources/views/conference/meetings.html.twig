@@ -26,12 +26,17 @@
             Date: {{ meeting.meetingDate|date('d M, Y') }}<br>
             <small>Initiated by: {{ meeting.initiatedBy }}</small><br>
             <hr>
-            <button type="button" class="btn btn-primary btn-sm"
-                    onclick=location.href="{{ path('cancel_meeting', {'id': meeting.id}) }}">Cancel Meeting
-            </button>
-            <button type="button" class="btn btn-primary btn-sm"
-                    onclick=location.href="{{ path('rearrange', {'id': meeting.id}) }}">Rearrange Meeting
-            </button>
+            {% if app.getUser() and (app.getUser().isInitiator(meeting)) or app.getUser().isAdmin() %}
+              <button type="button" class="btn btn-primary-delete btn-sm"
+                      onclick=location.href="{{ path('cancel_meeting', {'id': meeting.id}) }}">Cancel Meeting
+              </button>
+              <button type="button" class="btn btn-primary btn-sm"
+                      onclick=location.href="{{ path('rearrange', {'id': meeting.id}) }}">Rearrange Meeting
+              </button>
+              {% else %}
+                <button type="button" class="btn btn-primary-disabled btn-sm">Cancel Meeting</button>
+                <button type="button" class="btn btn-primary-disabled btn-sm">Rearrange Meeting</button>
+            {% endif %}
           </div>
         {% endfor %}
       </div>

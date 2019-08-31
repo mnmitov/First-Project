@@ -24,7 +24,7 @@
     </header>
   {% endblock %}
 </head>
-
+<body>
 {% block stylesheets %}
   <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
 {% endblock %}
@@ -33,19 +33,30 @@
 {% endblock %}
 
 {% block javascripts %}
+  <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+  <script>
+      setTimeout(function () {
+          $('#info').fadeOut();
+      }, 5000)
+  </script>
 {% endblock %}
 
 {% block footer %}
   <footer>
     <div id="cont_bottom">
       {% if app.user %}
-        You are logged in as: {{ app.user.firstName }} {{ app.user.lastName }} ({{ app.user.email }})
+        You are logged in as: {{ app.user.firstName }} {{ app.user.lastName }} ({{ app.user.email }}) with
+        {% if app.getUser() and (app.getUser().isAdmin()) %}
+          Administrator and
+        {% endif %}
+        User rights.
       {% else %}
         You are not logged in.
       {% endif %}
       <br>Today is: {{ "now"|date("jS F, Y (D)") }}
-      <br>Project developed by Miroslav Mitov using PHP v7.2.15 with Symfony Framework 3.4.30.
+      <br>Project developed by Miroslav Mitov using PHP v7.2.15 with Symfony Framework v3.4.30.
     </div>
   </footer>
 {% endblock %}
+</body>
 </html>

@@ -22,7 +22,7 @@ class MyTenderController extends Controller
    */
   public function myTenders($id, Request $request)
   {
-    $tenders = $this->getDoctrine()->getRepository(Tender::class)->find($id);
+    $tenders = $this->getDoctrine()->getRepository(Tender::class)->findAll();
 
     return $this->render("users/user_tenders.html.twig", ['tenders' => $tenders]);
   }
