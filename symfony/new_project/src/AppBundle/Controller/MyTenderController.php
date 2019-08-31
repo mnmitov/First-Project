@@ -3,8 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tender;
-use AppBundle\Entity\User;
-use AppBundle\Form\TenderType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +22,6 @@ class MyTenderController extends Controller
   {
     $tenders = $this->getDoctrine()->getRepository(Tender::class)->findAll();
 
-    return $this->render("users/user_tenders.html.twig", ['tenders' => $tenders]);
+    return $this->render("users/my_tenders.html.twig", ['tenders' => $tenders]);
   }
 }
