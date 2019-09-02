@@ -12,7 +12,7 @@ class MyTenderController extends Controller
 {
 
   /**
-   * @Route("/user/my_tenders/{id}", name="my_tenders")
+   * @Route("/user/my_tenders/{id}", name="my_tenders", methods={"GET"})
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param $id
    * @param Request $request

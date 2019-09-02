@@ -12,7 +12,7 @@
         Change budget: <input type="number" value="{{ tenders.money }}" name="tender[money]"><br>
         Change deadline:
         <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
-          <input class="form-control" type="text" placeholder="Pick the deadline for the tender *" value=""
+          <input class="form-control" type="text" placeholder="Pick the deadline for the tender *" value="{{ tenders.addedOn|date('Y-m-d') }}"
                  readonly name="tender[deadline]">
           <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>

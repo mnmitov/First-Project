@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TenderController extends Controller
 {
   /**
-   * @Route("/new_tender", name="new_tender")
+   * @Route("/new_tender", name="new_tender", methods={"POST"})
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param Request $request
    * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -50,7 +50,7 @@ class TenderController extends Controller
   }
 
   /**
-   * @Route("/tenders/all", name="all_tenders")
+   * @Route("/tenders/all", name="all_tenders", methods={"GET"})
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @return \Symfony\Component\HttpFoundation\Response
    */
@@ -64,7 +64,7 @@ class TenderController extends Controller
 
 
   /**
-   * @Route("/tenders/delete/{id}", name="delete_tender")
+   * @Route("/tenders/delete/{id}", name="delete_tender", methods={"GET"})
    * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
    * @param $id
    * @param Request $request
@@ -102,6 +102,7 @@ class TenderController extends Controller
     $em = $this->getDoctrine()->getManager();
     $em->remove($tender);
     $em->flush();
+    $this->addFlash('success', 'Tender has been deleted successfully!');
     return $this->redirectToRoute('all_tenders');
   }
 
@@ -133,7 +134,7 @@ class TenderController extends Controller
       $em = $this->getDoctrine()->getManager();
       $em->persist($tenders);
       $em->flush();
-
+      $this->addFlash('success', 'Tender has been edited successfully!');
       return $this->redirectToRoute('all_tenders');
     }
 
