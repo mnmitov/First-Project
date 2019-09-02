@@ -4,7 +4,6 @@
 
   <div id="container">
     <h1>User profile</h1>
-    <div class="col-sm-3">
       <div id="edit-container">
         <form method="post" action="{{ path('user_delete_process', {'id' : user.id}) }}">
           <h2>Are you sure you want to delete permanently your profile?</h2>
@@ -12,7 +11,6 @@
           <input type="submit" style="background: red" value="DELETE">
           <input type="button" onclick="history.back()" value="Cancel &raquo;">
         </form>
-      </div>
     </div>
   </div>
 

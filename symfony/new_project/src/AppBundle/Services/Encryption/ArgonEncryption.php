@@ -4,6 +4,8 @@
 namespace AppBundle\Services\Encryption;
 
 
+use AppBundle\Entity\User;
+
 class ArgonEncryption implements EncryptionServiceInterface
 {
 

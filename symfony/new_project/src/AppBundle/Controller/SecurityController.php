@@ -37,6 +37,7 @@ class SecurityController extends DefaultController
    */
   public function logout()
   {
+    $this->addFlash('success', 'Successfully logged out!');
     throw new \Exception('Logout failed!');
   }
 }

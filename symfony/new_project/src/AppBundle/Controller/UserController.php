@@ -50,7 +50,7 @@ class UserController extends Controller
     $form->handleRequest($request);
     $this->userService->save($user);
     $this->addFlash('success', 'You have been successfully registered!');
-    return $this->redirectToRoute('security_login');
+    return $this->redirectToRoute('homepage');
   }
 
 }

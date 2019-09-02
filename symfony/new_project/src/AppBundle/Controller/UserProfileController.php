@@ -96,6 +96,8 @@ class UserProfileController extends Controller
   {
     $user = $this->getDoctrine()->getRepository(User::class)->find($id);
     $form = $this->createForm(UserType::class, $user);
+    $form->remove('password');
+    $form->remove('gender');
     $form->handleRequest($request);
     if ($user === null) {
       return $this->redirectToRoute('index_profile');

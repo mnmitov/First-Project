@@ -20,31 +20,24 @@
           Change your first name: <input type="text" value="{{ user.firstName }}" name="user[firstName]"><small>In case of mistake!</small><br>
           Change your last name: <input type="text" value="{{ user.lastName }}" name="user[lastName]"><small>In case of mistake!</small><br>
           <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd">
-            <input class="form-control" type="text" placeholder="Pick your birth date *" value="" readonly
+            <input class="form-control" type="text" placeholder="Pick your birth date *" value="{{ user.bornDate|date('Y-m-d') }}" readonly
                    name="user[bornDate]">
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-          </div><small>In case of mistake!</small>
-          <input type="password" value="{{ user.password }}" name="user[password][first]" disabled><br>
-          <input type="password" value="{{ user.password }}" name="user[password][second]" disabled><br>
+          </div><small>In case of mistake!</small><br>
           <label>
-            Change your additional information: <input type="text" value={{ user.additInfo}} name="user[additInfo]">
+            Change your additional information: <textarea rows="3"  id="user-register-options" name="user[additInfo]">{{ user.additInfo }}</textarea>
           </label>
 
-          <select id="user-register-options" name="user[gender]">
-            <option value="" name="user[gender]">Select your gender</option>
-            <option value="Male" name="user[gender]">Male</option>
-            <option value="Female" name="user[gender]">Female</option>
-          </select><small>In case of mistake!</small>
           <select id="user-register-options" name="user[livingPlace]">
-            <option value="" name="user[livingPlace]">Select your city</option>
-            <option value="Sofia" name="user[livingPlace]">Sofia</option>
-            <option value="Plovdiv" name="user[livingPlace]">Plovdiv</option>
-            <option value="Varna" name="user[livingPlace]">Varna</option>
-            <option value="Burgas" name="user[livingPlace]">Burgas</option>
-            <option value="Stara Zagora" name="user[livingPlace]">Stara Zagora</option>
-            <option value="Ruse" name="user[livingPlace]">Ruse</option>
-            <option value="Dobrich" name="user[livingPlace]">Dobrich</option>
+            <option value="" {% if user.livingPlace == '' %} selected="selected" {% endif %} name="user[livingPlace]">Select your city</option>
+            <option value="Sofia" {% if user.livingPlace == 'Sofia' %} selected="selected" {% endif %} name="user[livingPlace]">Sofia</option>
+            <option value="Plovdiv" {% if user.livingPlace == 'Plovdiv' %} selected="selected" {% endif %} name="user[livingPlace]">Plovdiv</option>
+            <option value="Varna" {% if user.livingPlace == 'Varna' %} selected="selected" {% endif %} name="user[livingPlace]">Varna</option>
+            <option value="Burgas" {% if user.livingPlace == 'Burgas' %} selected="selected" {% endif %} name="user[livingPlace]">Burgas</option>
+            <option value="Stara Zagora" {% if user.livingPlace == 'Stara Zagora' %} selected="selected" {% endif %} name="user[livingPlace]">Stara Zagora</option>
+            <option value="Ruse" {% if user.livingPlace == 'Ruse' %} selected="selected" {% endif %} name="user[livingPlace]">Ruse</option>
+            <option value="Dobrich" {% if user.livingPlace == 'Dobrich' %} selected="selected" {% endif %} name="user[livingPlace]">Dobrich</option>
           </select>
 
           {{ form_row(form._token) }}
